@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloud-l3-project-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloud-l3-project
+  template:
+    metadata:
+      labels:
+        app: cloud-l3-project
+    spec:
+      containers:
+        - name: cloud-l3-project
+          image: AWS_ECR_URI #buildspec.yml에서 ECR의 URI:TAG 로 치환해줌
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+          env:
+            - name: DATE
+              value: 'DATE_STRING'
